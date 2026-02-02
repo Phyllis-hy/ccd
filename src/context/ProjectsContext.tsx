@@ -24,7 +24,7 @@ export function ProjectsProvider({ children }: { children: ReactNode }) {
         getProjects().then((list) => {
             setProjects(list);
 
-            // 可选：默认选中第一个项目（体验更好）
+            // Optional: select first project by default (better UX)
             if (list.length > 0 && !currentProjectId) {
                 setCurrentProjectId(list[0].id);
             }

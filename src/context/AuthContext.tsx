@@ -27,11 +27,11 @@ const AuthContext = createContext<AuthContextType | null>(null);
 const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
-  "http://localhost:8000";
+  "";
 const TOKEN_KEY = "access_token";
 const USER_KEY = "auth_user";
 
-/** 轻量 JWT decode（不校验签名，只读 payload） */
+/** Lightweight JWT decode (no signature validation, payload only) */
 function decodeJwtPayload(token: string): any | null {
   try {
     const payload = token.split(".")[1];
@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const sessionExpiredRef = useRef(false);
 
-  // ✅ 刷新恢复登录态：token + user
+  // ✅ Restore login state on refresh: token + user
   useEffect(() => {
     const savedToken = localStorage.getItem(TOKEN_KEY);
     const savedUser = localStorage.getItem(USER_KEY);
@@ -67,7 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setUser(null);
         }
       } else {
-        // 没存 user 的情况下尝试从 JWT 里读 email/sub
+        // If user is not stored, try to read email/sub from JWT
         const payload = decodeJwtPayload(savedToken);
         if (payload) {
           const inferred: User = {
@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             name: payload.name,
             role: payload.role,
           };
-          // 只要有点信息就存
+          // Store if any information is available
           if (inferred.email || inferred.id || inferred.name) {
             setUser(inferred);
             localStorage.setItem(USER_KEY, JSON.stringify(inferred));
@@ -160,15 +160,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       throw new Error("No access_token returned from server");
     }
 
-    // ✅ 1) 保存 token
+    // ✅ 1) Save token
     localStorage.setItem(TOKEN_KEY, accessToken);
     setToken(accessToken);
     setIsLoggedIn(true);
     sessionExpiredRef.current = false;
     resetAuthExpiredNotification();
 
-    // ✅ 2) 优先用后端返回的 user（如果你后端有返回的话）
-    // 兼容字段名：data.user / data.data.user / data.profile 等（按你实际情况可再加）
+    // ✅ 2) Prioritize user from backend if returned
+    // Support field name variants: data.user / data.data.user / data.profile, etc.
     const apiUser: User | null =
       data?.user || data?.data?.user || data?.data || null;
 
@@ -178,11 +178,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    // ✅ 3) 如果后端没返回 user，就从 JWT 推断（至少拿 email）
+    // ✅ 3) If backend doesn't return user, infer from JWT (at least get email)
     const payload = decodeJwtPayload(accessToken);
     const inferred: User = {
       id: payload?.sub,
-      email: payload?.email || email, // 没有 email claim 就用登录时输入的 email
+      email: payload?.email || email, // Use email from login input if no email claim exists
       name: payload?.name,
       role: payload?.role,
     };

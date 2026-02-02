@@ -908,7 +908,7 @@ function InsightsPage() {
                         alt="Insight image main"
                         fill
                         priority
-                        className="object-cover"
+                        className="object-contain p-1"
                       />
                     </div>
                     {/* 轻微高光 */}
@@ -928,7 +928,7 @@ function InsightsPage() {
                         src="/homeimage4.png"
                         alt="Insight image overlay"
                         fill
-                        className="object-cover"
+                        className="object-contain p-0"
                       />
                     </div>
                   </motion.div>

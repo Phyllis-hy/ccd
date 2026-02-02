@@ -3,6 +3,7 @@
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 
 import type { ChatMessage } from "../types/chat";
 import { useAuth } from "@/src/context/AuthContext";
@@ -54,8 +55,18 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
         <div className="flex items-end gap-2">
           <Avatar role={message.role} initials={userInitials} />
           <div className="flex flex-col items-start chat-bubble-animate-left">
-            <div className="max-w-[70vw] rounded-3xl bg-white px-4 py-2 text-sm text-slate-800 shadow-sm whitespace-pre-wrap">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
+            <div className="max-w-[70vw] rounded-3xl bg-white px-4 py-2 text-sm text-slate-800 shadow-sm">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm, remarkBreaks]}
+                components={{
+                  p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                  ul: ({ children }) => <ul className="mb-2 list-disc pl-5 last:mb-0">{children}</ul>,
+                  ol: ({ children }) => <ol className="mb-2 list-decimal pl-5 last:mb-0">{children}</ol>,
+                  li: ({ children }) => <li className="mb-1 last:mb-0">{children}</li>,
+                }}
+              >
+                {text}
+              </ReactMarkdown>
             </div>
             {timeLabel && (
               <span className="mt-1 text-[11px] text-slate-400">
@@ -69,8 +80,18 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
       {isUser && (
         <div className="flex items-end gap-2">
           <div className="flex flex-col items-end chat-bubble-animate-right">
-            <div className="max-w-[70vw] rounded-3xl bg-indigo-500 px-4 py-2 text-sm text-white shadow-sm whitespace-pre-wrap">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
+            <div className="max-w-[70vw] rounded-3xl bg-indigo-500 px-4 py-2 text-sm text-white shadow-sm">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm, remarkBreaks]}
+                components={{
+                  p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                  ul: ({ children }) => <ul className="mb-2 list-disc pl-5 last:mb-0">{children}</ul>,
+                  ol: ({ children }) => <ol className="mb-2 list-decimal pl-5 last:mb-0">{children}</ol>,
+                  li: ({ children }) => <li className="mb-1 last:mb-0">{children}</li>,
+                }}
+              >
+                {text}
+              </ReactMarkdown>
             </div>
             {timeLabel && (
               <span className="mt-1 text-[11px] text-slate-300">

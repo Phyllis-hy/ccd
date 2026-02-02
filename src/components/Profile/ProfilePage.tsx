@@ -113,7 +113,7 @@ export default function ProfilePage() {
         )}
       </section>
 
-      {/* Create project 弹窗 */}
+      {/* Create project dialog */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/40 flex justify-center items-center backdrop-blur-sm z-50">
           <div className="bg-white p-8 rounded-3xl shadow-xl w-full max-w-lg relative">

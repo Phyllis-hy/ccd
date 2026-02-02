@@ -27,13 +27,13 @@ export function resetAuthExpiredNotification() {
     authExpiredNotified = false;
 }
 
-// 后端统一错误结构
+// Backend unified error structure
 export interface ApiError {
     message: string;
     code: string;
 }
 
-// 后端统一响应结构：所有接口都长这样
+// Backend unified response structure: all endpoints follow this format
 export interface ApiResponse<T> {
     data: T | null;
     error: ApiError | null;
@@ -49,13 +49,13 @@ async function request<T>(path: string, options: RequestInit): Promise<T> {
         },
         credentials: "include",
         ...options,
-    });//对option变量的headers加入了 "Content-Type": "application/json" 这个键值对 然后传入fetch
+    }); // Add 'Content-Type': 'application/json' to option headers and pass to fetch
 
-    let json: ApiResponse<T>;  //我现在声明一个叫 json 的变量，它的类型是 ApiResponse<T>
+    let json: ApiResponse<T>;  // Declare a json variable of type ApiResponse<T>
     try { 
     json = (await res.json()) as ApiResponse<T>;
     } catch (e) {
-        // 一般不会发生，容错一下
+        // Generally won't happen, adding fallback
         if (res.status === 401) notifyAuthExpired();
         throw new Error(`Invalid JSON response from ${path}`);
     }
@@ -66,7 +66,7 @@ async function request<T>(path: string, options: RequestInit): Promise<T> {
             message: res.statusText,
             code: String(res.status),
         };
-        // 这里你之后可以换成自定义 Error 类型
+        // You can replace this with a custom Error type later
         throw new Error(`${err.code}: ${err.message}`);
     }
 

@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/src/context/AuthContext";
 import { useState } from "react";
-import { Playfair_Display } from "next/font/google";
 
 function EyeIcon({ open }: { open: boolean }) {
   // 不依赖任何库：用 inline svg
@@ -48,8 +47,6 @@ function EyeIcon({ open }: { open: boolean }) {
     </svg>
   );
 }
-
-const playfair = Playfair_Display({ subsets: ["latin"], weight: ["600", "700"] });
 
 function LoginPageInner() {
   const router = useRouter();
@@ -125,32 +122,14 @@ function LoginPageInner() {
 
         <div className="w-full max-w-[520px] rounded-[28px] border border-sky-100 bg-white/90 p-8 shadow-[0_30px_70px_-35px_rgba(30,64,175,0.25)] backdrop-blur">
           <div className="text-center">
-            <h1 className={`${playfair.className} text-3xl font-semibold text-slate-900`}>
+            <h1 className="text-3xl font-semibold text-slate-900">
               Login
             </h1>
-            <p className={`${playfair.className} mt-2 text-base text-slate-500`}>
+            <p className="mt-2 text-base text-slate-500">
               Welcome back — continue your workspace.
             </p>
           </div>
-
-          <div className="mt-6 flex justify-center">
-            <button
-              type="button"
-              disabled
-              className="flex w-full max-w-[260px] items-center justify-center gap-2 rounded-xl border border-sky-100 bg-white py-2.5 text-xs font-semibold text-slate-500 shadow-sm"
-            >
-              Continue with Google
-            </button>
-          </div>
-
-          <div className="mt-4">
-            <div className="flex items-center gap-3 text-xs text-slate-400">
-              <div className="h-px flex-1 bg-slate-200" />
-              <span>or continue with email</span>
-              <div className="h-px flex-1 bg-slate-200" />
-            </div>
-          </div>
-
+          
           <div className="mt-5 space-y-4">
             <div>
               <label className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">

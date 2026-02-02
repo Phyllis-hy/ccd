@@ -14,13 +14,13 @@ type DeleteProjectResponse = {
 };
 
 
-// 1）获取当前用户项目列表 GET /api/projects
+// 1) Get current user's project list GET /api/projects
 export async function getProjects(): Promise<ProjectInfo[]> {
     const data = await apiGet<ProjectsResponse>("/api/projects/");
     return data.projects;
 }
 
-// 2）创建项目 POST /api/projects
+// 2) Create project POST /api/projects
 export async function createProject(
     title: string,
     currentUserId?: string
@@ -36,13 +36,13 @@ export async function createProject(
     };
 }
 
-// 3）获取单个项目 GET /api/projects/{projectId}
+// 3) Get single project GET /api/projects/{projectId}
 export async function getProjectById(projectId: string): Promise<ProjectInfo> {
     const data = await apiGet<ProjectResponse>(`/api/projects/${projectId}`);
     return data.project;
 }
 
-// 4）更新项目 PATCH /api/projects/{projectId}
+// 4) Update project PATCH /api/projects/{projectId}
 export async function updateProject(
     projectId: string,
     payload: {
@@ -58,7 +58,7 @@ export async function updateProject(
     return data.project;
 }
 
-// 5）删除项目 DELETE /api/projects/{projectId}
+// 5) Delete project DELETE /api/projects/{projectId}
 export async function deleteProject(projectId: string): Promise<DeleteProjectResponse> {
     const data = await apiDelete<DeleteProjectResponse>(`/api/projects/${projectId}`);
     return data;

@@ -9,17 +9,17 @@ export default function ProfileHeader() {
   const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    logout();            // 清 token + 清 user
+    logout();            // cler token + clear user
     router.push("/login");
   };
 
-  // 显示名优先级：name > email前缀 > User
+  // Display name priority: name > email prefix > User
   const displayName =
     user?.name ||
     (user?.email ? user.email.split("@")[0] : "") ||
     "User";
 
-  // 头像字母（取前两个字母）
+  // Avatar letters (take first two characters)
   const avatarText = displayName.slice(0, 2).toUpperCase();
 
   return (

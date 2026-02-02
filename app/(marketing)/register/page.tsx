@@ -9,7 +9,7 @@ import { Playfair_Display } from "next/font/google";
 const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE_URL ??
   process.env.NEXT_PUBLIC_API_URL ??
-  "http://localhost:8000";
+  "";
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["600", "700"] });
 
 function RegisterPageInner() {
@@ -17,16 +17,16 @@ function RegisterPageInner() {
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirect") || "/login";
 
-  // ✅ 表单 state
+  // ✅ Form state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
 
-  // ✅ 显示/隐藏密码
+  // ✅ Show/hide password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  // ✅ UI 状态
+  // ✅ UI state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showLegal, setShowLegal] = useState(false);
@@ -77,9 +77,8 @@ function RegisterPageInner() {
       }
 
       router.push(redirectTo);
-    } catch (err) {
-      const error = err instanceof Error ? err.message : "Register failed.";
-      setError(error);
+    } catch (err: any) {
+      setError(err?.message ?? "Register failed.");
     } finally {
       setLoading(false);
     }

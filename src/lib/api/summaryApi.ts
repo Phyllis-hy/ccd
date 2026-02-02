@@ -15,10 +15,10 @@ export async function getSummary(
 }
 
 /**
- * 创建 / 更新阶段总结
- * 后端: PUT /api/projects/{projectId}/summary
+ * Create / Update stage summary
+ * Backend: PUT /api/projects/{projectId}/summary
  * body: { stage, summaryText }
- * ✅ 返回: StageSummary（统一）
+ * ✅ Returns: StageSummary (unified)
  */
 export async function saveSummary(
     projectId: string,

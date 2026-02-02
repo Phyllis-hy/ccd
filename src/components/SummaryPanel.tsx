@@ -33,7 +33,7 @@ type SummaryPanelProps = {
 export default function SummaryPanel({ onClose }: SummaryPanelProps) {
   return (
     <div className="flex h-full flex-col text-sm text-gray-800">
-      {/* 顶部工具栏 */}
+      {/* Top toolbar */}
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold">Summary</h2>
 
@@ -48,7 +48,7 @@ export default function SummaryPanel({ onClose }: SummaryPanelProps) {
 
           <VersionDropdown />
 
-          {/* ✕ 关闭按钮 */}
+          {/* Close button */}
           <button
             type="button"
             aria-label="Close summary"
@@ -60,10 +60,10 @@ export default function SummaryPanel({ onClose }: SummaryPanelProps) {
         </div>
       </div>
 
-      {/* 顶部横线 */}
+      {/* Top divider line */}
       <div className="mt-2 mb-4 h-px w-full bg-gray-200" />
 
-      {/* 当前总结 */}
+      {/* Current summary */}
       <div className="mb-4">
         <p className="text-xs leading-relaxed text-gray-700">
           这是项目「mock-project-id」在阶段 0 的 mock 总结。这里将展示由 AI
@@ -71,7 +71,7 @@ export default function SummaryPanel({ onClose }: SummaryPanelProps) {
         </p>
       </div>
 
-      {/* History 标题行 */}
+      {/* History title row */}
       <div className="mb-2 flex items-center justify-between text-xs">
         <span className="font-semibold">History</span>
         <span className="text-[11px] text-gray-400">
@@ -79,8 +79,8 @@ export default function SummaryPanel({ onClose }: SummaryPanelProps) {
         </span>
       </div>
 
-      {/* 历史列表 */}
-      <div className="flex-1 space-y-2 overflow-y-auto pr-1">
+      {/* History list */}
+      <div className="mb-2 space-y-2">
         {history.map((item) => (
           <div
             key={item.id}
